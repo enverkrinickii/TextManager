@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TextManager.TextElements;
 using TextManager.WorkWithFile;
 
@@ -15,8 +12,10 @@ namespace TextManager
             string path = "Book.txt";
 
             string outputPath = "out.txt";
+
             FileManager manager = new FileManager(path);
             string text = manager.ReadFromFile();
+
             Text myText = new Text(text);
 
             List<string> listOfWords = myText.GetAllWords();
@@ -25,10 +24,6 @@ namespace TextManager
             Dictionary<string, int> myDictionary = myText.GetWordsWithoutCopies();
 
             List<string> finalList = myText.EndMethod();
-            foreach (var word in finalList)
-            {
-                Console.WriteLine(word);
-            }
 
             manager.WriteInFile(finalList, outputPath);
 
