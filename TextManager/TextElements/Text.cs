@@ -49,16 +49,15 @@ namespace TextManager.TextElements
             {
                 foreach (var item in word)
                 {
-                    if (item.ToString() != "'" && item.ToString() != string.Empty)
                     ListOfAllWords.Add(item.ToString());
                 }
             }
             return ListOfAllWords;
         }
 
-        public void SortWords()
+        public void SortWords(List<string> list)
         {
-            ListOfAllWords.Sort();
+            list.Sort();
         }
 
         public Dictionary<string, int> GetWordsWithoutCopies()

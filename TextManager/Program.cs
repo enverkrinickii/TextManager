@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TextManager.TextElements;
 using TextManager.WorkWithFile;
 
@@ -19,7 +22,7 @@ namespace TextManager
             Text myText = new Text(text);
 
             List<string> listOfWords = myText.GetAllWords();
-            myText.SortWords();
+            myText.SortWords(listOfWords);
 
             Dictionary<string, int> myDictionary = myText.GetWordsWithoutCopies();
 

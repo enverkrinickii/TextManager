@@ -26,7 +26,8 @@ namespace TextManager.TextElements
             string[] words = parser.ParsStrings(_sentence, _delimeter);
             foreach (var word in words)
             {
-                ListOfWords.Add(new Word(word.ToLower().Trim()));
+                if (word != "'" && word != string.Empty)
+                    ListOfWords.Add(new Word(word.ToLower().Trim()));
             }
         }
 
