@@ -53,6 +53,7 @@ namespace TextManager.TextElements
             {
                 foreach (var item in word)
                 {
+                    if (item.ToString() != "'" && item.ToString() != string.Empty)
                     ListOfAllWords.Add(item.ToString());
                 }
             }

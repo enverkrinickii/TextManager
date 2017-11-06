@@ -32,9 +32,13 @@ namespace TextManager.WorkWithFile
             return text;
         }
 
-        public void WriteInFile(List<string> list)
+        public void WriteInFile(List<string> list, string path)
         {
-            throw new NotImplementedException();
+            StreamWriter stream = new StreamWriter(path);
+            foreach (var item in list)
+            {
+                stream.WriteLine(item);
+            }
         }
     }
 }

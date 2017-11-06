@@ -13,6 +13,8 @@ namespace TextManager
         static void Main(string[] args)
         {
             string path = "Book.txt";
+
+            string outputPath = "out.txt";
             FileManager manager = new FileManager(path);
             string text = manager.ReadFromFile();
             Text myText = new Text(text);
@@ -27,6 +29,10 @@ namespace TextManager
             {
                 Console.WriteLine(word);
             }
+
+            manager.WriteInFile(finalList, outputPath);
+
+            Console.WriteLine("You're file is ready. Check it");
 
             Console.ReadKey();
 
