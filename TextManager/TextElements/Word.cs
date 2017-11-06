@@ -17,7 +17,7 @@ namespace TextManager.TextElements
 
         public override string ToString()
         {
-            return this._word.ToString();
+            return this._word;
         }
     }
 }

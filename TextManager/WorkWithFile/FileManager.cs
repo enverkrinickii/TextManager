@@ -9,10 +9,22 @@ namespace TextManager.WorkWithFile
 {
     class FileManager : IWorkerWithFile
     {
-        public string ReadFromFile(string path)
+        public FileManager(string path)
+        {
+            Path = path;
+        }
+
+        public FileManager()
+        {
+            
+        }
+
+        public string Path { get; private set; }
+
+        public string ReadFromFile()
         {
             var text = string.Empty;
-            StreamReader stream = new StreamReader(path);
+            StreamReader stream = new StreamReader(this.Path);
             while (!stream.EndOfStream)
             {
                 text += stream.ReadLine();
