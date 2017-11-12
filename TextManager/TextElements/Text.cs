@@ -57,6 +57,10 @@ namespace TextManager.TextElements
 
         public void SortWords(List<string> list)
         {
+            //var sortedList = from i in list
+            //                 orderby i
+            //                 select i;
+            //return sortedList.ToList();
             list.Sort();
         }
 
@@ -72,7 +76,7 @@ namespace TextManager.TextElements
             return amountOfRepeat;
         }
 
-        public List<string> EndMethod()
+        private List<string> EndMethod()
         {
             List<string> endList = new List<string>();
             for (int i = 0; i < amountOfRepeat.Count; i++)
@@ -90,6 +94,14 @@ namespace TextManager.TextElements
                 endList.Add(item.Key.PadRight(20, '.') + item.Value.ToString().PadRight(20, '.') + numbersOfSentences);
             }
             return endList;
+        }
+
+        public IEnumerable<IGrouping<char, string>> GroupByFirstLetter()
+        {
+            List<string> endList = EndMethod();
+            var wordGroups = endList.GroupBy(w => w[0]);
+
+            return wordGroups;
         }
 
     }

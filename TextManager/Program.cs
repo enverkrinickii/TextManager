@@ -22,13 +22,14 @@ namespace TextManager
             Text myText = new Text(text);
 
             List<string> listOfWords = myText.GetAllWords();
+            
             myText.SortWords(listOfWords);
 
             Dictionary<string, int> myDictionary = myText.GetWordsWithoutCopies();
 
-            List<string> finalList = myText.EndMethod();
+            var groups =  myText.GroupByFirstLetter();
 
-            manager.WriteInFile(finalList, outputPath);
+            manager.WriteInFile(groups, outputPath);
 
             Console.WriteLine("You're file is ready. Check it");
 

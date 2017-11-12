@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace TextManager.WorkWithFile
 {
@@ -28,12 +29,16 @@ namespace TextManager.WorkWithFile
             return text;
         }
 
-        public void WriteInFile(List<string> list, string path)
+        public void WriteInFile(IEnumerable<IGrouping<char, string>> groups, string path)
         {
             StreamWriter stream = new StreamWriter(path);
-            foreach (var item in list)
+            foreach (var group in groups)
             {
-                stream.WriteLine(item);
+                stream.WriteLine(group.Key.ToString().ToUpper());
+                foreach (var word in group)
+                {
+                    stream.WriteLine(word);
+                }
             }
         }
     }
