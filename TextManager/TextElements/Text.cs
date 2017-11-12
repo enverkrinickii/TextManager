@@ -8,18 +8,21 @@ namespace TextManager.TextElements
     public class Text
     {
         private List<Sentence> ListOfSentences;
-        private List<string> ListOfAllWords;
-        private Dictionary<string, int> amountOfRepeat;
+        private List<string> listOfPages;
+        private int _numberOfPages;
+
+
         private string _text;
         private readonly char[] _delimeter = { '.', '!', '?' };
 
-        public Text(string text)
+        public Text(string text, int numberOfPages)
         {
             _text = text;
+            _numberOfPages = numberOfPages;
             ParsText();
         }
 
-        public void ParsText()
+        private void ParsText()
         {
             ListOfSentences = new List<Sentence>();
             string[] sents = _text.Split(_delimeter , StringSplitOptions.RemoveEmptyEntries);
@@ -34,9 +37,9 @@ namespace TextManager.TextElements
             return ListOfSentences;
         }
 
-        public List<string> GetAllWords()
+        private List<string> GetAllWords()
         {
-            ListOfAllWords = new List<string>();
+            List<string> listOfAllWords = new List<string>();
             List<List<Word>> listOfWords = new List<List<Word>>();
             foreach (var sentence in ListOfSentences)
             {
@@ -49,25 +52,25 @@ namespace TextManager.TextElements
             {
                 foreach (var item in word)
                 {
-                    ListOfAllWords.Add(item.ToString());
+                    listOfAllWords.Add(item.ToString());
                 }
             }
-            return ListOfAllWords;
+            return listOfAllWords;
         }
 
-        public void SortWords(List<string> list)
-        {
-            //var sortedList = from i in list
-            //                 orderby i
-            //                 select i;
-            //return sortedList.ToList();
-            list.Sort();
-        }
+        //private void SortWords(List<string> list)
+        //{
+        //    //var sortedList = from i in list
+        //    //                 orderby i
+        //    //                 select i;
+        //    //return sortedList.ToList();
+        //    list.Sort();
+        //}
 
-        public Dictionary<string, int> GetWordsWithoutCopies()
+        private static Dictionary<string, int> GetWordsWithoutCopies(IEnumerable<string> listOfAllWords)
         {
-            amountOfRepeat = new Dictionary<string, int>();
-            var group = ListOfAllWords.GroupBy(i => i);
+            Dictionary<string, int>  amountOfRepeat = new Dictionary<string, int>();
+            var group = listOfAllWords.GroupBy(i => i);
 
             foreach (var g in group)
             {
@@ -78,20 +81,25 @@ namespace TextManager.TextElements
 
         private List<string> EndMethod()
         {
+            List<string> listOfAllWords = GetAllWords();
+            listOfAllWords.Sort();
+            GetPages();
+            Dictionary<string, int> amountOfRepeat  = GetWordsWithoutCopies(listOfAllWords);
             List<string> endList = new List<string>();
+            
             for (int i = 0; i < amountOfRepeat.Count; i++)
             {
                 var item = amountOfRepeat.ElementAt(i);
-                string numbersOfSentences = string.Empty;
-                for (int j = 0; j < ListOfSentences.Count; j++)
+                string numberOfPages = string.Empty;
+                for (int j = 0; j < listOfPages.Count; j++)
                 {
                     var pattern = @"\b" + Regex.Escape(item.Key) + @"\b";
-                    if (Regex.IsMatch(ListOfSentences[j].ToString(), pattern, RegexOptions.IgnoreCase))
+                    if (Regex.IsMatch(listOfPages[j], pattern, RegexOptions.IgnoreCase))
                     {
-                        numbersOfSentences += (j + 1) + " ";
+                        numberOfPages += (j + 1) + " ";
                     }
                 }
-                endList.Add(item.Key.PadRight(20, '.') + item.Value.ToString().PadRight(20, '.') + numbersOfSentences);
+                endList.Add(item.Key.PadRight(20, '.') + item.Value.ToString().PadRight(20, '.') + numberOfPages);
             }
             return endList;
         }
@@ -102,6 +110,28 @@ namespace TextManager.TextElements
             var wordGroups = endList.GroupBy(w => w[0]);
 
             return wordGroups;
+        }
+
+        public void GetPages()
+        {
+            listOfPages = new List<string>();
+
+            int pagesCount = ListOfSentences.Count / _numberOfPages == 0 ? ListOfSentences.Count / _numberOfPages : ListOfSentences.Count / _numberOfPages + 1;
+
+            string[] sentences = new string[ListOfSentences.Count]; 
+
+            for (int i = 0; i < ListOfSentences.Count; i++)
+            {
+                sentences[i] = ListOfSentences[i].ToString().ToLower();
+            }
+
+            for (int i = 0; i < pagesCount; i++)
+            {
+                int startIndex = i * _numberOfPages;
+                int numberOfSentences = startIndex + _numberOfPages > ListOfSentences.Count ? (ListOfSentences.Count - startIndex) : _numberOfPages;
+                listOfPages.Add(string.Join(" ", sentences, startIndex, numberOfSentences));
+                
+            }
         }
 
     }

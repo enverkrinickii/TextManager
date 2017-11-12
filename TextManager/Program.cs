@@ -19,13 +19,20 @@ namespace TextManager
             FileManager manager = new FileManager(path);
             string text = manager.ReadFromFile();
 
-            Text myText = new Text(text);
-
-            List<string> listOfWords = myText.GetAllWords();
+            Console.WriteLine("Input amount of sentences on page:");
+            var amount = int.Parse(Console.ReadLine());
             
-            myText.SortWords(listOfWords);
 
-            Dictionary<string, int> myDictionary = myText.GetWordsWithoutCopies();
+            Text myText = new Text(text, amount);
+
+            //List<string> pages = myText.GetPages(amount);
+
+            //foreach (var page in pages)
+            //{
+            //    Console.WriteLine(page);
+            //}
+
+            //Console.WriteLine(pages[70]);
 
             var groups =  myText.GroupByFirstLetter();
 
