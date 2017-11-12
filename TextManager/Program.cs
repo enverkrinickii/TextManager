@@ -25,15 +25,6 @@ namespace TextManager
 
             Text myText = new Text(text, amount);
 
-            //List<string> pages = myText.GetPages(amount);
-
-            //foreach (var page in pages)
-            //{
-            //    Console.WriteLine(page);
-            //}
-
-            //Console.WriteLine(pages[70]);
-
             var groups =  myText.GroupByFirstLetter();
 
             manager.WriteInFile(groups, outputPath);

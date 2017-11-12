@@ -83,7 +83,7 @@ namespace TextManager.TextElements
         {
             List<string> listOfAllWords = GetAllWords();
             listOfAllWords.Sort();
-            GetPages();
+            GetPagesText();
             Dictionary<string, int> amountOfRepeat  = GetWordsWithoutCopies(listOfAllWords);
             List<string> endList = new List<string>();
             
@@ -112,7 +112,7 @@ namespace TextManager.TextElements
             return wordGroups;
         }
 
-        public void GetPages()
+        private void GetPagesText()
         {
             listOfPages = new List<string>();
 
@@ -130,7 +130,6 @@ namespace TextManager.TextElements
                 int startIndex = i * _numberOfPages;
                 int numberOfSentences = startIndex + _numberOfPages > ListOfSentences.Count ? (ListOfSentences.Count - startIndex) : _numberOfPages;
                 listOfPages.Add(string.Join(" ", sentences, startIndex, numberOfSentences));
-                
             }
         }
 
