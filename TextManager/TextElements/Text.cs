@@ -79,7 +79,7 @@ namespace TextManager.TextElements
             return amountOfRepeat;
         }
 
-        private List<string> EndMethod()
+        private List<string> GetNumberOfPagesWhereWordContains()
         {
             List<string> listOfAllWords = GetAllWords();
             listOfAllWords.Sort();
@@ -106,7 +106,7 @@ namespace TextManager.TextElements
 
         public IEnumerable<IGrouping<char, string>> GroupByFirstLetter()
         {
-            List<string> endList = EndMethod();
+            List<string> endList = GetNumberOfPagesWhereWordContains();
             var wordGroups = endList.GroupBy(w => w[0]);
 
             return wordGroups;
